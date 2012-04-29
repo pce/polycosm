@@ -1,0 +1,4 @@
+ofxSQLite
+ofxXmlSettings
+ofxUI
+

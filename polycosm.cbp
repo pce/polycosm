@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="polycosm" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="addons/;src/;addons/ofxSQLite/src/;addons/ofxUI/src/;addons/ofxSQLite/src/lib/sqlite/;addons/ofxXmlSettings/src/;build config/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Debug/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux/libopenFrameworksDebug.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+			</Target>
+			<Target title="Release">
+				<Option output="bin/$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Release/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux/libopenFrameworks.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+			</Target>
+		</Build>
+		<Unit filename="../../../addons/ofxSQLite/src/lib/sqlite/sqlite3.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="addons/ofxSQLite/src/lib/sqlite" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/lib/sqlite/sqlite3.h">
+			<Option virtualFolder="addons/ofxSQLite/src/lib/sqlite" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/lib/sqlite/sqlite3ext.h">
+			<Option virtualFolder="addons/ofxSQLite/src/lib/sqlite" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLite.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLite.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteAbstract.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteAbstract.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteDelete.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteDelete.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteFieldValues.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteFieldValues.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteHeaders.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteInsert.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteInsert.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteSelect.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteSelect.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteSimpler.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteSimpler.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteType.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteTypeNow.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteUpdate.cpp">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteUpdate.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxSQLite/src/ofxSQLiteWhere.h">
+			<Option virtualFolder="addons/ofxSQLite/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUI.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUI2DPad.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIButton.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUICanvas.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIDropDownList.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIEventArgs.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIFPS.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImage.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageButton.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIImageToggle.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabel.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelButton.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUILabelToggle.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUINumberDialer.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRadio.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRangeSlider.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRectangle.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIRotarySlider.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUISlider.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpacer.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUISpectrum.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUITextInput.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggle.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIToggleMatrix.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWaveform.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxUI/src/ofxUIWidget.h">
+			<Option virtualFolder="addons/ofxUI/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp">
+			<Option virtualFolder="addons/ofxXmlSettings/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h">
+			<Option virtualFolder="addons/ofxXmlSettings/src" />
+		</Unit>
+		<Unit filename="config.make">
+			<Option virtualFolder="build config" />
+		</Unit>
+		<Unit filename="src/circlenode.cpp" />
+		<Unit filename="src/circlenode.h" />
+		<Unit filename="src/main.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/testApp.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/testApp.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
