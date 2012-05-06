@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include "ofxDate.h"
 #include "ofxSQLiteHeaders.h"
 #include "contact.h"
 #include "circlenode.h"
@@ -28,6 +29,8 @@ class testApp : public ofBaseApp
 
 	void drawBackground();
 	void drawCircles();
+    void setupCalendar();
+    void drawCalendar();
     void updateContactView();
 
 	void keyPressed  (int key);
@@ -52,6 +55,7 @@ class testApp : public ofBaseApp
 
    	private:
 		ofxSQLite* sqlite;
+		ofxDate* date;
 		int curPersonId;
         int sumOfPersons;
         Contact* contact;

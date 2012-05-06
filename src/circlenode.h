@@ -21,9 +21,14 @@ class CircleNode
             ofLine(m_originX, m_originY, m_x, m_y);
             ofCircle(m_x, m_y, 20);
         }
-
-        unsigned int getVelocity() { return m_velocity; }
-        void setVelocity(unsigned int val) { m_velocity = val; }
+        void setVelocity(unsigned int val) {
+            m_velocityX = val;
+            m_velocityY = val;
+        }
+        unsigned int getVelocityX() { return m_velocityX; }
+        void setVelocityX(unsigned int val) { m_velocityX = val; }
+        unsigned int getVelocityY() { return m_velocityY; }
+        void setVelocityY(unsigned int val) { m_velocityY = val; }
 
         int getX() { return m_x; }
         void setX(int val) { m_x = val; }
@@ -50,7 +55,8 @@ class CircleNode
         unsigned int m_originX;
         unsigned int m_originY;
         unsigned int m_size;
-        int m_velocity;
+        int m_velocityX;
+        int m_velocityY;
 };
 
 #endif // CIRCLENODE_H

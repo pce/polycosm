@@ -1,5 +1,7 @@
 #include "testApp.h"
 
+#define _LOCAL_
+#define _DEBUG_
 
 vector<int> personIds;
 vector<CircleNode*> circleNodes;
@@ -8,6 +10,9 @@ vector<string> actionParams;
 //--------------------------------------------------------------
 void testApp::setup()
 {
+#ifdef _DEBUG_
+    ofSetLogLevel(OF_LOG_VERBOSE);
+#endif
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
   	// init vars.
@@ -24,11 +29,14 @@ void testApp::setup()
     // gui->setFontSize(OFX_UI_FONT_MEDIUM, 10);
     // gui->setFontSize(OFX_UI_FONT_SMALL, 8);
 
+#ifdef _LOCAL_
     sqlite = new ofxSQLite(ofToDataPath("contacts.db"));
+#else
+    sqlite = new ofxSQLite(ofToDataPath("polycosm.db"));
+#endif
 	// Get default Contact.
 	//-------------------------------------------------------------------------
     contact = new Contact;
-
 	ofxSQLiteSelect sel = sqlite->select("count(person_id) as total").from("person");
 	sel.execute().begin();
 	sumOfPersons = sel.getInt();
@@ -43,15 +51,11 @@ void testApp::setup()
             sel.next();
         }
         curPersonId = personIds.front();
-
         ofLogVerbose() << "curPersonId:" << curPersonId << std::endl;
         sel = sqlite->select("*").from("person").where("person_id", curPersonId)
                 .execute()
                 .begin();
-
         ofLogVerbose() << sel.getLiteralQuery();
-        // cout << sel.getResultAsAsciiTable();
-
         while(sel.hasNext()) {
             int id = sel.getInt();
             curPersonId = id;
@@ -95,15 +99,16 @@ void testApp::setup()
 
         originX = ofGetWidth()/2;
         originY = ofGetHeight()/2;
-
-        uint8_t nodeSum = (sumOfPersons > 8) ? 8 : sumOfPersons;
+        // uint8_t nodeSum = (sumOfPersons > 8) ? 8 : sumOfPersons;
+        uint8_t nodeSum = 8;
         for (int i=0; i < nodeSum; i++) {
             CircleNode* circlenode = new CircleNode;
             circlenode->setX(ofRandom(0,ofGetWidth()));
             circlenode->setY(ofRandom(0,ofGetHeight()));
             circlenode->setOriginX(originX);
             circlenode->setOriginY(originY);
-            circlenode->setVelocity(ofRandom(1,4));
+            circlenode->setVelocityX(ofRandom(1,4));
+            circlenode->setVelocityY(ofRandom(1,4));
             circleNodes.push_back(circlenode);
         }
 
@@ -186,14 +191,7 @@ void testApp::setup()
     ddList->setAutoClose(true);
     ddList->setAllowMultiple(false);
 
-    // gui->addWidgetSouthOf(new ofxUISpacer(length-xInit, 2), "OF LOGO 1");
-    // gui->addWidgetDown(new ofxUILabel("FPS LABEL", OFX_UI_FONT_MEDIUM));
-    // gui->addWidgetDown(new ofxUIFPS(OFX_UI_FONT_MEDIUM));
-
     ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
-    // gui->loadSettings("GUI/guiSettings.xml");
-
-    // ofLightlight.enable();light.setDirectional();light.setPosition(0,0,150);ofFloatColor ambient_color(1.0, 0.0, 0.0,1.0);ofFloatColor diffuse_color(1.0, 1.0, 1.0);ofFloatColor specular_color(0.0, 1.0, 0.0);light.setAmbientColor(ambient_color);light.setDiffuseColor(diffuse_color);light.setSpecularColor(specular_color);
 }
 
 //--------------------------------------------------------------
@@ -260,17 +258,12 @@ void testApp::update()
             ofxSQLiteSelect sel = sqlite->select("*").from("person").where("person_id",curPersonId);
 
             if (actionCode & ACTION_ALPHABETICAL) {
-                // actionParam[0]
-                // select * from person where lastname like "E%"
                 ofLogVerbose() << "ACTION_ALPHABETICAL" << endl;
                 if (actionParams.size())
-                    sel = sqlite->select("*").from("person").where("lastname", actionParams[0],WHERE_LIKE);
+                    sel = sqlite->select("*").from("person").where("lastname", actionParams[0], WHERE_LIKE);
             }
-
             sel.execute().begin();
-
-            ofLogVerbose() << sel.getLiteralQuery() << endl;
-
+            // ofLogVerbose() << sel.getLiteralQuery() << endl;
             while(sel.hasNext()) {
                 int id = sel.getInt();
                 curPersonId = id;
@@ -314,13 +307,13 @@ void testApp::update()
     for (int i=0; i < circleNodes.size(); i++) {
         x = circleNodes[i]->getX();
         y = circleNodes[i]->getY();
-        x += circleNodes[i]->getVelocity();
-        y += circleNodes[i]->getVelocity();
+        x += circleNodes[i]->getVelocityX();
+        y += circleNodes[i]->getVelocityY();
         if (x > ofGetWidth() || x < 0) {
-            circleNodes[i]->setVelocity(circleNodes[i]->getVelocity() * -1);
+            circleNodes[i]->setVelocityX(circleNodes[i]->getVelocityX() * -1);
         }
         if (y > ofGetHeight() || y < 0) {
-            circleNodes[i]->setVelocity(circleNodes[i]->getVelocity() * -1);
+            circleNodes[i]->setVelocityY(circleNodes[i]->getVelocityY() * -1);
         }
         circleNodes[i]->setX(x);
         circleNodes[i]->setY(y);
@@ -360,6 +353,22 @@ void testApp::drawBackground()
     glEnd();
 
 }
+
+
+void testApp::setupCalendar()
+{
+    // Date date(1,month,year);
+    // date=date-date.getWeekday();
+    // int calweek=date.getCalendarWeek();
+}
+
+void testApp::drawCalendar()
+{
+    // while (date.getMonth()==month)
+    for (int i=0; i < 7; i++)
+        ;
+}
+
 
 
 void testApp::drawCircles()
@@ -429,6 +438,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 void testApp::exit()
 {
     delete contact;
+    delete sqlite;
     delete gui;
 	delete[] buffer;
     delete img;
@@ -445,26 +455,17 @@ void testApp::keyPressed(int key)
     switch (key)
     {
         case 'f':
-        {
             ofToggleFullscreen();
-        }
         break;
         case 's':
-        {
             ofSaveScreen("screenshot.png");
-        }
-
         case 'p':
-        {
             drawPadding = !drawPadding;
             gui->setDrawPadding(drawPadding);
-        }
         break;
 
         case 'g':
-        {
             gui->toggleVisible();
-        }
         break;
         default:
         break;
