@@ -1,7 +1,7 @@
 #include "testApp.h"
 
-#define _LOCAL_
-#define _DEBUG_
+// #define _LOCAL_
+// #define _DEBUG_
 
 vector<int> personIds;
 vector<CircleNode*> circleNodes;
@@ -13,17 +13,20 @@ void testApp::setup()
 #ifdef _DEBUG_
     ofSetLogLevel(OF_LOG_VERBOSE);
 #endif
-    m_isShnikShnakVisible=true;
-    m_isCalendarVisible=false;
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
+    // test
+    m_isShnikShnakVisible=true;
+    m_isCalendarVisible=false;
+    // gui.contact
   	curPersonIdIndex = 0;
     red = 32; blue = 216; green = 52;
 	float dim = 16;
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
-    float length = 320-xInit;
+    float contactTabLength = 320-xInit;
     drawPadding = false;
-    gui = new ofxUICanvas(0,0,length+xInit,ofGetHeight());
+    // length+xInit
+    gui = new ofxUICanvas(0,0,ofGetWidth(),ofGetHeight());
     gui->setFont("GUI/mplus-1mn-medium.ttf");
     // gui->setFontSize(OFX_UI_FONT_LARGE, 12);
     // gui->setFontSize(OFX_UI_FONT_MEDIUM, 10);
@@ -110,37 +113,37 @@ void testApp::setup()
 	}
 
 	gui->addWidgetDown(new ofxUILabel("CONTACTS", OFX_UI_FONT_LARGE));
-    gui->addWidgetDown(new ofxUISpacer(length-xInit, 2));
+    gui->addWidgetDown(new ofxUISpacer(contactTabLength-xInit, 2));
 
     gui->addWidgetDown(new ofxUILabelButton(false, "<", OFX_UI_FONT_MEDIUM));
     gui->addWidgetRight(new ofxUILabelButton(false, ">", OFX_UI_FONT_MEDIUM));
 
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_NAME", contact->getFirstname(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_NAME", contact->getFirstname(), OFX_UI_FONT_MEDIUM));
     ofxUITextInput* textinput = (ofxUITextInput *) gui->getWidget("CT_NAME");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_LASTNAME", contact->getLastname(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_LASTNAME", contact->getLastname(), OFX_UI_FONT_MEDIUM));
     textinput = (ofxUITextInput *) gui->getWidget("CT_LASTNAME");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_PHONE", contact->getPhone(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_PHONE", contact->getPhone(), OFX_UI_FONT_MEDIUM));
     textinput = (ofxUITextInput *) gui->getWidget("CT_PHONE");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_MOBILE", contact->getMobile(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_MOBILE", contact->getMobile(), OFX_UI_FONT_MEDIUM));
     textinput = (ofxUITextInput *) gui->getWidget("CT_MOBILE");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_EMAIL", contact->getEmail(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_EMAIL", contact->getEmail(), OFX_UI_FONT_MEDIUM));
     textinput = (ofxUITextInput *) gui->getWidget("CT_EMAIL");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUITextInput(length-xInit, "CT_DAYOFBIRTH", contact->getDayofbirth(), OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUITextInput(contactTabLength-xInit, "CT_DAYOFBIRTH", contact->getDayofbirth(), OFX_UI_FONT_MEDIUM));
     textinput = (ofxUITextInput *) gui->getWidget("CT_DAYOFBIRTH");
     textinput->setAutoClear(false);
 
-    gui->addWidgetDown(new ofxUISpacer(length-xInit, 2));
+    gui->addWidgetDown(new ofxUISpacer(contactTabLength-xInit, 2));
 
     img = new ofImage();
     // <email>|<id>.jpg
@@ -151,11 +154,11 @@ void testApp::setup()
         img->loadImage("dummy.jpg");
 
     // gui->addWidgetDown(new ofxUILabel("IMAGE DISPLAY", OFX_UI_FONT_MEDIUM));
-    float imgDim = (length-xInit)*.5;
+    float imgDim = (contactTabLength-xInit)*.5;
     imgDim -=xInit;
     gui->addWidgetDown(new ofxUIImage(imgDim, imgDim, img, "CT_IMAGE", false));
 
-    gui->addWidgetDown(new ofxUISpacer(length-xInit, 2));
+    gui->addWidgetDown(new ofxUISpacer(contactTabLength-xInit, 2));
 
     vector<string> items;
     items.push_back("A-D");
@@ -361,6 +364,8 @@ void testApp::setupCalendar()
     m_month = date.getMonth();
     m_day = date.getDay();
     m_year = date.getYear();
+    // todays bday
+    // "select *  from person where dayofbirth ="+m_year+"-"+m_month+"-"+m_day;
 }
 
 void testApp::drawCalendar()
