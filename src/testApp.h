@@ -55,11 +55,18 @@ class testApp : public ofBaseApp
 
    	private:
 		ofxSQLite* sqlite;
-		ofxDate* date;
+		ofxDate date;
 		int curPersonId;
         int sumOfPersons;
         Contact* contact;
         int curPersonIdIndex;
+        int m_year;
+        int m_month;
+        int m_day;
+        int m_mouseX;
+        int m_mouseY;
+        bool m_isCalendarVisible;
+        bool m_isShnikShnakVisible;
         // for ofTrueTypeFont - source is UTF-8
         std::string utf8ToAnsiHexLatin1(string strtext)
         {

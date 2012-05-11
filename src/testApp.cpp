@@ -13,16 +13,16 @@ void testApp::setup()
 #ifdef _DEBUG_
     ofSetLogLevel(OF_LOG_VERBOSE);
 #endif
+    m_isShnikShnakVisible=true;
+    m_isCalendarVisible=false;
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
-  	// init vars.
   	curPersonIdIndex = 0;
     red = 32; blue = 216; green = 52;
 	float dim = 16;
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 320-xInit;
     drawPadding = false;
-  	// init objects.
     gui = new ofxUICanvas(0,0,length+xInit,ofGetHeight());
     gui->setFont("GUI/mplus-1mn-medium.ttf");
     // gui->setFontSize(OFX_UI_FONT_LARGE, 12);
@@ -42,7 +42,7 @@ void testApp::setup()
 	sumOfPersons = sel.getInt();
 	ofLogVerbose() << "total entries:" << sumOfPersons << endl;
 	if (sumOfPersons >= 1) {
-        // save ids:
+        // save ids
         sel = sqlite->select("person_id").from("person");
         sel.execute().begin();
         while(sel.hasNext()) {
@@ -88,18 +88,14 @@ void testApp::setup()
             std::string email = sel.getString();
             contact->setEmail(utf8ToAnsiHexLatin1(email));
             ofLogVerbose() << id << ", " << firstname << " " << lastname << endl;
-            // sel.next();
-            ofLogVerbose() << "break";
             break;
         }
-
         // init circles
         int originX; int originY;
         int x; int y;
 
         originX = ofGetWidth()/2;
         originY = ofGetHeight()/2;
-        // uint8_t nodeSum = (sumOfPersons > 8) ? 8 : sumOfPersons;
         uint8_t nodeSum = 8;
         for (int i=0; i < nodeSum; i++) {
             CircleNode* circlenode = new CircleNode;
@@ -111,8 +107,6 @@ void testApp::setup()
             circlenode->setVelocityY(ofRandom(1,4));
             circleNodes.push_back(circlenode);
         }
-
-
 	}
 
 	gui->addWidgetDown(new ofxUILabel("CONTACTS", OFX_UI_FONT_LARGE));
@@ -192,6 +186,7 @@ void testApp::setup()
     ddList->setAllowMultiple(false);
 
     ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
+    setupCalendar();
 }
 
 //--------------------------------------------------------------
@@ -301,7 +296,12 @@ void testApp::update()
             }
             updateContactView();
         }
-	}
+	} // hasPersonChanged
+	// set Date back to inital state
+    date.setMonth(m_month);
+    date.setYear(m_year);
+    date.setDay(m_day);
+    // draw nodes
 	int x;
 	int y;
     for (int i=0; i < circleNodes.size(); i++) {
@@ -357,16 +357,49 @@ void testApp::drawBackground()
 
 void testApp::setupCalendar()
 {
-    // Date date(1,month,year);
-    // date=date-date.getWeekday();
-    // int calweek=date.getCalendarWeek();
+    ofxDate date = ofxDate();
+    m_month = date.getMonth();
+    m_day = date.getDay();
+    m_year = date.getYear();
 }
 
 void testApp::drawCalendar()
 {
-    // while (date.getMonth()==month)
-    for (int i=0; i < 7; i++)
-        ;
+    // date.inspect();
+    ofSetCircleResolution(5);
+    ofNoFill();
+
+    int calweek = date.getCalendarWeek();
+    int dayX = 0;
+    int dayY = 96;
+    int dayR = 48;
+    int dayH = 64;
+    date.setDay(1);
+    int dayNum = 0;
+    ofSetHexColor(0x4488FF);
+    ofDrawBitmapString(ofToString(m_year)+"-"+ofToString(m_month)+"-"+ofToString(m_day), 320 + (6 * (dayR*2)), 16);
+    date = date-date.getWeekday();
+    do {
+        ofSetHexColor(0x4466FF);
+        if (date.getMonth() == 1) calweek=1;
+        ofDrawBitmapString(ofToString(calweek), 328, dayY);
+        for (dayNum=0; dayNum < 7; dayNum++, date=date+1) {
+            if (date.getMonth() == m_month) {
+                ofSetHexColor(0xFF4488);
+            } else {
+                ofSetHexColor(0x5599FF);
+            }
+            dayX = 300 + (dayNum * (dayR*2)) + (dayR*2);
+            if (date.getDay() == m_day) ofSetHexColor(0xEEFFFF);
+            ofCircle(dayX, dayY, dayR);
+            ofSetHexColor(0xDDEEFF);
+            ofDrawBitmapString(ofToString(date.getDay()), dayX-(dayR/2), dayY);
+            // ofDrawBitmapString(ofToString(date.getMonth())+"."+ofToString(date.getYear()), dayX-(dayR/2), dayY);
+        }
+        dayY += dayH;
+        calweek++;
+   }  while (date.getMonth() == m_month);
+
 }
 
 
@@ -380,7 +413,8 @@ void testApp::drawCircles()
 void testApp::draw()
 {
 	drawBackground();
-    drawCircles();
+    if (m_isShnikShnakVisible) drawCircles();
+    if (m_isCalendarVisible) drawCalendar();
 	ofPushStyle();
 	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 	ofPopStyle();
@@ -454,6 +488,12 @@ void testApp::keyPressed(int key)
 
     switch (key)
     {
+        case 'c':
+            m_isCalendarVisible = !m_isCalendarVisible;
+        break;
+        case 'e':
+            m_isShnikShnakVisible = !m_isShnikShnakVisible;
+        break;
         case 'f':
             ofToggleFullscreen();
         break;
@@ -463,7 +503,6 @@ void testApp::keyPressed(int key)
             drawPadding = !drawPadding;
             gui->setDrawPadding(drawPadding);
         break;
-
         case 'g':
             gui->toggleVisible();
         break;

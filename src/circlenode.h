@@ -14,7 +14,7 @@ class CircleNode
         {
             ofSetColor(255, 255, 255, 128);
             ofFill();
-            ofSetCircleResolution(5);
+            ofSetCircleResolution(6);
             ofCircle(m_x, m_y, 20);
             ofSetColor(128, 128, 128, 128);
             ofNoFill();
