@@ -15,7 +15,13 @@ To update the project, eg. after adding an addon, run from OF_ROOT:
     $ scripts/linux/createProjects.py apps/ofApps/polycosm
 
 
-![polycosm-screenshot](polycosm/raw/master/polycosm.png)
+issues
+======
+
+* no UTF-8 
+
+
+![polycosm-screenshot](https://raw.githubusercontent.com/pce/polycosm/master/polycosm.png)
 
 
 
